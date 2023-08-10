@@ -17,10 +17,11 @@ h4 {
   inset-inline: 0;
   inset-block: 0 auto;
   background: #5CA5A5;
+  block-size: 9.75rem;
 }
 .pattern > picture {
   inline-size: 100%;
-  block-size: 9.75rem;
+  block-size: 100%;
 }
 .pattern > picture > img {
   inline-size: 100%;
@@ -36,6 +37,11 @@ main {
   position: relative;
   z-index: 99;
 }
+@media (width < 750px) {
+  main {
+    inline-size: min(327px, 95%);
+  }
+}
 main > .filterOptions {
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -43,7 +49,7 @@ main > .filterOptions {
   border-radius: 5px;
   background: #FFF;
   box-shadow: 0px 15px 20px -5px rgba(13, 113, 130, 0.15);
-  block-size: 4.5rem;
+  min-block-size: 4.5rem;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -94,25 +100,49 @@ main > .jobs {
   display: grid;
   gap: 1.5rem;
 }
+@media (width < 750px) {
+  main > .jobs {
+    gap: 2.5rem;
+  }
+}
 main > .jobs > .job {
+  position: relative;
   border-radius: 5px;
   inline-size: 100%;
   border-inline-start: 4px solid transparent;
   padding-inline: 2.5rem;
   padding-block: 2rem;
-  gap: 1.5rem;
   background: #FFF;
   box-shadow: 0px 15px 20px -5px rgba(13, 113, 130, 0.15);
   display: flex;
   align-items: center;
+  gap: 1.5rem;
 }
 main > .jobs > .job.true {
   border-inline-start: 4px solid #5CA5A5;
 }
+@media (width < 750px) {
+  main > .jobs > .job {
+    padding-inline: 1.5rem;
+    padding-block: 2rem 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0rem;
+  }
+}
 main > .jobs > .job > .img {
+  flex: 0 0 auto;
   border-radius: 50%;
   inline-size: 5.5rem;
   block-size: 5.5rem;
+}
+@media (width < 750px) {
+  main > .jobs > .job > .img {
+    position: absolute;
+    inset-block-start: -1.5rem;
+    inline-size: 3rem;
+    block-size: 3rem;
+  }
 }
 main > .jobs > .job > .img > img {
   inline-size: 100%;
@@ -121,9 +151,17 @@ main > .jobs > .job > .img > img {
      object-fit: cover;
 }
 main > .jobs > .job > .details {
+  flex: 0 0 auto;
   display: flex;
   flex-flow: column;
   gap: 1rem;
+}
+@media (width < 750px) {
+  main > .jobs > .job > .details {
+    inline-size: 100%;
+    padding-block-end: 0.9375rem;
+    border-block-end: solid 1px #B7C4C4;
+  }
 }
 main > .jobs > .job > .details > .detailsHeader {
   display: flex;
@@ -176,6 +214,12 @@ main > .jobs > .job > .options {
      -moz-user-select: none;
           user-select: none;
   margin-inline-start: auto;
+}
+@media (width < 750px) {
+  main > .jobs > .job > .options {
+    margin: 0;
+    padding-block-start: 0.9375rem;
+  }
 }
 main > .jobs > .job > .options > .option {
   color: #5CA5A5;

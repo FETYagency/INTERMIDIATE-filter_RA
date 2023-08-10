@@ -15,6 +15,7 @@ function App() {
   function handleBarVisibility(){
     sestBarVisibility(true)
   }
+
   function handleFilters(e){
     let newFilters = [
       ...filter,
@@ -32,9 +33,11 @@ function App() {
     })
     setJobs(newList.filter(ele=>ele!==undefined))
   }
+
   function handleExeclude(e){
     let newFilters = filter.filter(ele=>ele!==e.currentTarget.dataset.info)
     setFilter(newFilters)
+    setJobs(false)
     
     fetch(req)
     .then(resp=>{
@@ -58,7 +61,7 @@ function App() {
   }
   
   
-  if(!jobs){
+  if(jobs===null){
     fetch(req)
     .then(resp=>{
       return resp.json()
@@ -81,15 +84,14 @@ function App() {
 
         <Bar selects={filter} isVisible={barVisiblity} onExeclude={handleExeclude}/>
 
-        {jobs
+        {jobs  
           ?<Jobs jobsData={jobs} onShow={handleBarVisibility} onFilter={handleFilters}/>
           :(<div className='loaderContainer'>
               <div className="loader">
                 <span className="loader-text">loading</span>
                 <span className="load"></span>
               </div>
-
-          </div>)
+            </div>)
         }
 
       </main>
