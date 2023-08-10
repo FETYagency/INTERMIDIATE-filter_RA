@@ -1,19 +1,43 @@
-export default function Jobs({jobsData, onShow, onFilter}){
+import { useEffect, useRef, useState } from "react"
+
+export default function Jobs({jobsData, onShow, onFilter, trigger}){
     let jobsList = jobsData.map(jobData=>{
-        return <Job jobData={jobData} onShow={onShow} onFilter={onFilter}/>
+        return <Job jobData={jobData} onShow={onShow} onFilter={onFilter} trigger={trigger}/>
     })
     return(
         <ul className="jobs">
             {jobsList}
         </ul>
     )
-
+    
 }
 
 
-function Job({jobData, onShow, onFilter}){
+function Job({jobData, onShow, onFilter, trigger}){
+    const targetRef = useRef(null)
+    const [isIntersecting, setIsIntersecting] = useState(false);
+    useEffect(()=>{
+        const observer = new IntersectionObserver((entries)=>{
+            entries.forEach(entry=>{
+                if (entry.isIntersecting) {
+                    setIsIntersecting(true);
+                    entry.target.classList.remove("out")
+                    entry.target.classList.add("in")
+                } else {
+                    setIsIntersecting(false);
+                    entry.target.classList.remove("in")
+                    entry.target.classList.add("out")
+                }
+            })
+        },{
+            threshold:.5,
+        })
+        if (targetRef.current) {
+            observer.observe(targetRef.current);
+        }
+    },trigger)
     return(
-        <li className={"job " + (jobData.new?"true":"false")} key={jobData.id}>
+        <li className={"job " + (jobData.new?"true":"false")} key={jobData.id} ref={targetRef}> 
             <Img path={jobData.logo}/>
             <Details 
                 companyName={jobData.company}

@@ -87,7 +87,7 @@ function App() {
         <Bar selects={filter} isVisible={barVisiblity} onExeclude={handleExeclude}/>
 
         {jobs  
-          ?<Jobs jobsData={jobs} onShow={handleBarVisibility} onFilter={handleFilters}/>
+          ?<Jobs jobsData={jobs} onShow={handleBarVisibility} onFilter={handleFilters} trigger={jobs}/>
           :(<div className='loaderContainer'>
               <div className="loader">
                 <span className="loader-text">loading</span>
