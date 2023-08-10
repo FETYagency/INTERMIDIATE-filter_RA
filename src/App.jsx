@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Jobs from "./jobLists";
 import Bar from "./filterBar"
 
@@ -61,16 +61,18 @@ function App() {
   }
   
   
-  if(jobs===null){
-    fetch(req)
-    .then(resp=>{
-      return resp.json()
-    })
-    .then(data=>{
-      initialList=data.record;
-      setJobs(data.record)
-    })
-  }
+  useEffect(
+    ()=>{
+      fetch(req)
+      .then(resp=>{
+        return resp.json()
+      })
+      .then(data=>{
+        initialList=data.record;
+        setJobs(data.record)
+      })
+    },[])
+
   return (
     <>
       <div className='pattern'>
